@@ -16,14 +16,77 @@
  */
 package battlestar;
 
+import io.Output;
+
 /**
- * Represents BS cargo space.
- * It stores resources required for BS operations. It has limited space, due
- * to construction limitations of battlestars.
- * 
+ * Represents BS cargo space. It stores resources required for BS operations. It
+ * has limited space, due to construction limitations of battlestars.
+ *
  * @author Malanius malanius@seznam.cz
  * @version 0.0.1
  */
 class Cargo {
-    
+
+    /**
+     * Subystem name for debug output
+     */
+    private final String subsystem = "Cargo";
+    /**
+     * Current resources in cargo hold
+     */
+    private int resources;
+    /**
+     * Maximum possible load of resources. Subject to ballancing changes.
+     */
+    private final int maxResources;
+
+    /**
+     * Creates cargohold of BattleStar
+     */
+    protected Cargo() {
+        maxResources = 5_000;
+        resources = 500;
+        Output.msgDebug(subsystem, "Initialized...");
+    }//End of constructor
+
+    /**
+     * Returns resources avalible in cargo.
+     */
+    protected int getResources() {
+        return resources;
+    }//End of getResources
+
+    /**
+     * Check if requested resources are avalible
+     *
+     * @param request ammount of requested resources
+     */
+    protected boolean isAvalible(int request) {
+        return (resources >= request);
+    }//End of isAvalible
+
+    /**
+     * Adds resources to cargohold. Resources that doesn't fit into cargohold
+     * are jetsisioned.
+     *
+     * @param addition ammount of resources to add
+     */
+    protected void addResources(int addition) {
+        resources += addition;
+        if (resources > maxResources) {
+            Output.msgInfo(String.format("We have full cargo, sir! %s resources was jetsisioned.", resources - maxResources));
+            resources = maxResources;
+        }
+        Output.msgDebug(subsystem, String.format("Added %s resources.", addition));
+    }//End of addResources
+
+    /**
+     * Removes resources from cargohold.
+     *
+     * @param request ammount of requested
+     */
+    protected void takeResources(int request) {
+        resources -= request;
+        Output.msgDebug(subsystem, String.format("Removed %s resources.", request));
+    }//End of takeResources
 }//End of class
