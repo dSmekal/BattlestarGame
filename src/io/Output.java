@@ -38,7 +38,7 @@ public class Output {
      * @param message Debug message to be displayed
      */
     public static void msgDebug(String sender, String message) {
-        System.err.printf("%s: %s", sender, message);
+        System.err.printf("%s: %s\n", sender, message);
     }//End of msgDebug
 
     /**
