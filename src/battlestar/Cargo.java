@@ -74,7 +74,7 @@ class Cargo {
     protected void addResources(int addition) {
         resources += addition;
         if (resources > maxResources) {
-            Output.msgInfo(String.format("We have full cargo, sir! %s resources was jetsisioned.", resources - maxResources));
+            Output.msgInfo(String.format("XO: We have full cargo, sir! %s resources was jetsisioned.", resources - maxResources));
             resources = maxResources;
         }
         Output.msgDebug(subsystem, String.format("Added %s resources.", addition));

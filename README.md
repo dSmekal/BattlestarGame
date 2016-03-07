@@ -4,4 +4,4 @@ Master branch will always represent upd to date status of project and reflects m
 Other branches will be used as working ones until finished, then it will become archive of previous versions.
 
 ##Console-Version
-This version will run in console only using writtenc commands.
+This version will run in console only using written commands.
