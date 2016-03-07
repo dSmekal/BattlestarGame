@@ -16,12 +16,44 @@
  */
 package battlestar;
 
+import io.Output;
+
 /**
- * Represents player battlestar. All BS operations are carried out by this class.
- * 
+ * Represents player battlestar. All BS operations are carried out by this
+ * class.
+ *
  * @author Malanius malanius@seznam.cz
  * @version 0.0.1
  */
 public class Battlestar {
-    
+
+    private final String subsystem = "Battlestar";
+    /**
+     * Cargohold of battlestar which holds its resources
+     */
+    private Cargo cargo;
+    /**
+     * Crew that serves on battlestar.
+     */
+    private Crew crew;
+
+    /**
+     * Creates a battlestar. Factory will be used for setup.
+     */
+    private Battlestar(Cargo cargo, Crew crew) {
+        this.cargo = cargo;
+        this.crew = crew;
+
+    }//End of constructor
+
+    public static Battlestar constructBattlestar() {
+        Output.msgDebug("Factory", "Constructing Battlestar");
+        Output.msgDebug("Factory", "Initializing cargo...");
+        Cargo crg = new Cargo();
+        Output.msgDebug("Factory", "Initializing crew...");
+        Crew crw = new Crew();
+        Battlestar bs = new Battlestar(crg,crw);
+        Output.msgDebug("Factory", "Battlestar constructed!");
+        return bs;
+    }
 }//End of class
