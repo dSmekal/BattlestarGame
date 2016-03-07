@@ -36,6 +36,10 @@ class Crew {
      * Level of crew ability
      */
     private int level;
+    /**
+     * Max level of crew. Subject to balancing changes
+     */
+    private final int maxLevel = 5;
 
     /**
      * Creates crew for battlestar
@@ -55,9 +59,27 @@ class Crew {
     }
 
     /**
+     * Return max level whuch crew can be trained for
+     *
+     * @return max level of crew
+     */
+    protected int getMaxLevel() {
+        return maxLevel;
+    }
+
+    /**
      * Increases level of crew
      */
     protected void trainCrew() {
         level++;
+    }
+
+    /**
+     * Returns the resource cost of training crew to another level.
+     *
+     * @return training cost
+     */
+    protected int getTrainingCost() {
+        return level * 1_000;
     }
 }//End of class
