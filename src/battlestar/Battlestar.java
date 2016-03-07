@@ -81,4 +81,26 @@ public class Battlestar {
             cargo.addResources(ammount);
         }
     }
+
+    /**
+     * Attemps to train the crew to enxt level. Crew is trained to next level,
+     * if there is enough resources and crew isn't on max level.
+     */
+    public void trainCrew() {
+        if (crew.getLevel() < crew.getMaxLevel()) {
+            if (cargo.isAvalible(crew.getTrainingCost())) {
+                crew.trainCrew();
+                Output.msgInfo("XO: Our crew is bit more efficient again, sir.");
+            } else {
+                Output.msgInfo("XO: Sir, we don't have enough resources for training.");
+            }
+        } else {
+            Output.msgInfo("XO: We have nothing more to teach our crew, sir!");
+        }
+    }
+    //TODO Hull operations
+    //TODO Armor operations
+    //TODO FLT operations
+    //TODO Guns operations
+    //TODO Hangar operations
 }//End of class
