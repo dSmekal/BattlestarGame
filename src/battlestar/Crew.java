@@ -72,6 +72,7 @@ class Crew {
      */
     protected void trainCrew() {
         level++;
+        Output.msgDebug(subsystem, "Crew trained");
     }
 
     /**
