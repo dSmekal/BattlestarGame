@@ -27,15 +27,18 @@ import io.Output;
  */
 public class Battlestar {
 
+    /**
+     * Subsystem name for debug output
+     */
     private final String subsystem = "Battlestar";
     /**
      * Cargohold of battlestar which holds its resources
      */
-    private Cargo cargo;
+    private final Cargo cargo;
     /**
      * Crew that serves on battlestar.
      */
-    private Crew crew;
+    private final Crew crew;
 
     /**
      * Creates a battlestar. Factory will be used for setup.
@@ -46,14 +49,36 @@ public class Battlestar {
 
     }//End of constructor
 
+    /**
+     * Battlestar factory. As battlestar construction reqires lot of other
+     * obejcts, that are protected from outside, I've chosen factory for
+     * construction.
+     *
+     * @return completed instance of battlestar
+     */
     public static Battlestar constructBattlestar() {
         Output.msgDebug("Factory", "Constructing Battlestar");
         Output.msgDebug("Factory", "Initializing cargo...");
         Cargo crg = new Cargo();
         Output.msgDebug("Factory", "Initializing crew...");
         Crew crw = new Crew();
-        Battlestar bs = new Battlestar(crg,crw);
+        Battlestar bs = new Battlestar(crg, crw);
         Output.msgDebug("Factory", "Battlestar constructed!");
         return bs;
+    }//End of factory
+
+    /**
+     * Handles resources operations invoked from outside, as only BS has acces
+     * to cargohold. Input values can be negative for resource loss (from
+     * events) and positive for gain.
+     *
+     * @param ammount ammount of resources to handle.
+     */
+    public void handleResources(int ammount) {
+        if (ammount < 0) {
+            cargo.takeResources(Math.abs(ammount));
+        } else {
+            cargo.addResources(ammount);
+        }
     }
 }//End of class
