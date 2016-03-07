@@ -16,14 +16,48 @@
  */
 package battlestar;
 
+import io.Output;
+
 /**
- * Represents Battlestar's crew.
- * Crew operates all BS systems and provides efficiency bonuses based on their
- * level. Crew can be trained to higher level for better bonuses.
- * 
+ * Represents Battlestar's crew. Crew operates all BS systems and provides
+ * efficiency bonuses based on their level. Crew can be trained to higher level
+ * for better bonuses.
+ *
  * @author Malanius malanius@seznam.cz
  * @version 0.0.1
  */
 class Crew {
-    
+
+    /**
+     * Subsystem name for debug output
+     */
+    private final String subsystem = "Crew";
+    /**
+     * Level of crew ability
+     */
+    private int level;
+
+    /**
+     * Creates crew for battlestar
+     */
+    protected Crew() {
+        level = 1;
+        Output.msgDebug(subsystem, "Initialized...");
+    }
+
+    /**
+     * Returns crew level
+     *
+     * @return crew level
+     */
+    protected int getLevel() {
+        return level;
+    }
+
+    /**
+     * Increases level of crew
+     */
+    protected void trainCrew() {
+        level++;
+    }
 }//End of class
