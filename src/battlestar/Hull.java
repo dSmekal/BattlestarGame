@@ -38,6 +38,10 @@ class Hull {
      */
     protected final int maxLevel = 5;
     /**
+     * Base Upgrade cost per level. Subject to balancing changes
+     */
+    protected final int baseUpgradeCost = 1_000;
+    /**
      * Current hit ponts, if reaches zero, game is over.
      */
     protected int hp;
@@ -45,8 +49,10 @@ class Hull {
      * Maximum hit points. Level x hpPerLlv. Subject to balancing changes.
      */
     protected int maxHp;
-
-    protected int hpPerLvl;
+    /**
+     * HP modifier per level. Subject to balancing changes
+     */
+    protected int hpPerLvl = 1_000;
     /**
      * Subsystem name for debug output.
      */
@@ -56,7 +62,6 @@ class Hull {
      * Crates hull of battlestar.
      */
     protected Hull() {
-        hpPerLvl = 1_000;
         level = 1;
         maxHp = level * hpPerLvl;
         hp = maxHp;
@@ -107,6 +112,10 @@ class Hull {
      */
     protected int getDamage() {
         return maxHp - hp;
+    }
+
+    protected int getUpgradeCost() {
+        return baseUpgradeCost * level;
     }
 
     /**
