@@ -116,6 +116,7 @@ class Hull {
      */
     protected void repair() {
         hp = maxHp;
+        Output.msgDebug(subsystem, "Repaired.");
     }
 
     /**
@@ -123,6 +124,7 @@ class Hull {
      */
     protected void takeDamage(int damage) {
         hp -= damage;
+        Output.msgDebug(subsystem, String.format("Damaged by %s HP.", damage));
     }
 
 }//End of class
