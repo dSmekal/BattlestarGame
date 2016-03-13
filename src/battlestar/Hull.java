@@ -75,6 +75,7 @@ class Hull {
 
     /**
      * Returns structure maximum level.
+     *
      * @return maximum structure level
      */
     protected int getMaxLevel() {
@@ -115,7 +116,7 @@ class Hull {
         level++;
         maxHp = level * hpPerLvl;
         hp = maxHp;
-        Output.msgDebug(subsystem, "Upgraded.");
+        Output.msgDebug(subsystem, String.format("Upgraded to level %s.", level));
     }
 
     /**
