@@ -16,15 +16,132 @@
  */
 package battlestar;
 
+import io.Output;
+
 /**
- * Represents BS hull and structural integrity.
- * When it's destroyed, it's game over. Hull doesn't provide bonuses to damage
- * protection, but can be upgraded to provide better structural integrity.
- * Combat and events damage the hull, but damage can be repaired using resources.
- * 
+ * Represents BS hull structural integrity. When it's destroyed, it's game over.
+ * Hull doesn't provide bonuses to damage protection, but can be upgraded to
+ * provide better structural integrity. Combat and events damage the hull, but
+ * damage can be repaired using resources.
+ *
  * @author Malanius malanius@seznam.cz
  * @version 0.0.1
  */
 class Hull {
-    
+
+    /**
+     * Current level.
+     */
+    protected int level;
+    /**
+     * Maximal level. Subject to balancicng changes.
+     */
+    protected final int maxLevel = 5;
+    /**
+     * Base Upgrade cost per level. Subject to balancing changes
+     */
+    protected final int baseUpgradeCost = 1_000;
+    /**
+     * Current hit ponts, if reaches zero, game is over.
+     */
+    protected int hp;
+    /**
+     * Maximum hit points. Level x hpPerLlv. Subject to balancing changes.
+     */
+    protected int maxHp;
+    /**
+     * HP modifier per level. Subject to balancing changes
+     */
+    protected int hpPerLvl = 1_000;
+    /**
+     * Subsystem name for debug output.
+     */
+    protected String subsystem;
+
+    /**
+     * Crates hull of battlestar.
+     */
+    protected Hull() {
+        level = 1;
+        maxHp = level * hpPerLvl;
+        hp = maxHp;
+        subsystem = "Hull";
+        Output.msgDebug(subsystem, "Initialized...");
+    }//End of constructor
+
+    /**
+     * Returns structure level.
+     *
+     * @return level of structure
+     */
+    protected int getLevel() {
+        return level;
+    }
+
+    /**
+     * Returns structure maximum level.
+     *
+     * @return maximum structure level
+     */
+    protected int getMaxLevel() {
+        return maxLevel;
+    }
+
+    /**
+     * Return structure HP.
+     *
+     * @return current structure HP
+     */
+    protected int getHp() {
+        return hp;
+    }
+
+    /**
+     * Return structure maximum HP.
+     *
+     * @return structure maximum HP
+     */
+    protected int getMaxHp() {
+        return maxHp;
+    }
+
+    /**
+     * Returns current damage on layer.
+     *
+     * @return hit points damaged
+     */
+    protected int getDamage() {
+        return maxHp - hp;
+    }
+
+    protected int getBaseUpgradeCost() {
+        return baseUpgradeCost * level;
+    }
+
+    /**
+     * Upgrades structure level and repairs ut to new maximum hitpoints.
+     */
+    protected void upgrade() {
+        level++;
+        maxHp = level * hpPerLvl;
+        hp = maxHp;
+        Output.msgDebug(subsystem, String.format("Upgraded to level %s.", level));
+    }
+
+    /**
+     * Restores hit points to maximum.
+     */
+    protected void repair() {
+        hp = maxHp;
+        Output.msgDebug(subsystem, "Repaired.");
+    }
+
+    /**
+     * Deals damage to structure
+     */
+    protected void takeDamage(int damage) {
+        hp -= damage;
+        Output.msgDebug(subsystem, String.format("Damaged by %s HP.", damage));
+    }
+
 }//End of class

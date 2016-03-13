@@ -29,7 +29,7 @@ import io.Output;
 class Crew {
 
     /**
-     * Subsystem name for debug output
+     * Subsystem name for debug output.
      */
     private final String subsystem = "Crew";
     /**
@@ -37,12 +37,16 @@ class Crew {
      */
     private int level;
     /**
-     * Max level of crew. Subject to balancing changes
+     * Max level of crew. Subject to balancing changes.
      */
     private final int maxLevel = 5;
+    /**
+     * Base training cost per level. Subject to balancing changes.
+     */
+    private final int baseTrainingCost = 1_000;
 
     /**
-     * Creates crew for battlestar
+     * Creates crew for battlestar.
      */
     protected Crew() {
         level = 1;
@@ -50,7 +54,7 @@ class Crew {
     }
 
     /**
-     * Returns crew level
+     * Returns crew level.
      *
      * @return crew level
      */
@@ -59,7 +63,7 @@ class Crew {
     }
 
     /**
-     * Return max level whuch crew can be trained for
+     * Return max level whuch crew can be trained for.
      *
      * @return max level of crew
      */
@@ -68,7 +72,7 @@ class Crew {
     }
 
     /**
-     * Increases level of crew
+     * Increases level of crew.
      */
     protected void trainCrew() {
         level++;
@@ -81,6 +85,18 @@ class Crew {
      * @return training cost
      */
     protected int getTrainingCost() {
-        return level * 1_000;
+        return level * baseTrainingCost;
     }
+
+    /**
+     * Calculates new cost based on crew efficiency
+     *
+     * @return cost with crew bonus
+     */
+    protected int getCrewBonusCost(int baseCost) {
+        int bonus = Math.round(baseCost * (level / 10.0f));
+        int newCost = baseCost - bonus;
+        Output.msgDebug(subsystem, String.format("New cost with crew bonus %s is %s resources.", -bonus, newCost));
+        return newCost;
+    }//End of getCrewBonusCost
 }//End of class

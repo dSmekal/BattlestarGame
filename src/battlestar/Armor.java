@@ -16,15 +16,41 @@
  */
 package battlestar;
 
+import io.Output;
+
 /**
- * Represents BS armor protection.
- * It has bigger HP pool than hull and provides bonus to damage protection.
- * It can be also upgraded. Level of armor anc crew skill determines defense power.
- * Combat and events damage the hull, but damage can be repaired using resources.
- * 
+ * Represents BS armor protection. It has bigger HP pool than hull and provides
+ * bonus to damage protection. It can be also upgraded. Level of armor anc crew
+ * skill determines defense power. Combat and events damage the hull, but damage
+ * can be repaired using resources.
+ *
  * @author Malanius malanius@seznam.cz
  * @version 0.0.1
  */
-class Armor extends Hull{
-    
+class Armor extends Hull {
+
+    /**
+     * Bonus to HP pool. Subject to balancing changes.
+     */
+    private final int hpBonus = 5;
+
+    //*Creates armor of battlestar.*/
+    protected Armor() {
+        super();
+        subsystem = "Armor";
+        maxHp = hpPerLvl * hpBonus;
+        hp = maxHp;
+        Output.msgDebug(subsystem, "Initialized...");
+    }//End of constructor
+
+    /**
+     * Upgrades strutucre level and repairs it to max level
+     */
+    @Override
+    protected void upgrade() {
+        level++;
+        maxHp = level * hpPerLvl * hpBonus;
+        hp = maxHp;
+        Output.msgDebug(subsystem, String.format("Upgraded to level %s.", level));
+    }
 }//End of class
