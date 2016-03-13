@@ -93,7 +93,7 @@ class Crew {
      *
      * @return cost with crew bonus
      */
-    private int getCrewBonusCost(int baseCost) {
+    protected int getCrewBonusCost(int baseCost) {
         float bonusPrecentage = level / 10.f;
         int newCost = Math.round(bonusPrecentage * baseCost);
         Output.msgDebug(subsystem, String.format(subsystem, String.format("New cost with crew bonus is %s resources.", newCost)));
