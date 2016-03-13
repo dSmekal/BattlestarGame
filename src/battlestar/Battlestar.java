@@ -138,19 +138,52 @@ public class Battlestar {
     public void repairHull() {
         if (hull.getHp() < hull.maxHp) {
             int cost = crew.getCrewBonusCost(hull.getDamage());
-            if (cargo.isAvalible(cost)){
+            if (cargo.isAvalible(cost)) {
                 cargo.takeResources(cost);
                 hull.repair();
                 Output.msgInfo("XO: Our hull is repaired to top shape, sir.");
-            }
-            else{
+            } else {
                 Output.msgInfo("XO: Sir, we don't have enough resources for hull repairs!");
             }//Resource check
         } else {
             Output.msgInfo("XO: Our hull is already in top shape, sir!");
         }//Damage check
     }//End of repairHull
-    //TODO Armor operations
+
+    //Armor operations
+    /**
+     * Attemps to upgrade hull to next level. Upgrade is dine if enough
+     * resources is provided ant hull isn't already at max level.
+     */
+    public void upgradeArmor() {
+        if (armor.getLevel() < armor.getMaxLevel()) {
+            int cost = crew.getCrewBonusCost(armor.baseUpgradeCost);
+            if (cargo.isAvalible(cost)) {
+                cargo.takeResources(cost);
+                armor.upgrade();
+                Output.msgInfo("XO: We've upgraded our armor, sir.");
+            } else {
+                Output.msgInfo("XO: Sir, we don't have enough resources for armor upgrade!");
+            }//End of resource check
+        } else {
+            Output.msgInfo("XO: We can't improve our armor anymore, sir");
+        }//End of level check
+    }//End of upgradeArmor
+    public void repairAarmor() {
+        if (armor.getHp() < armor.maxHp) {
+            int cost = crew.getCrewBonusCost(armor.getDamage());
+            if (cargo.isAvalible(cost)) {
+                cargo.takeResources(cost);
+                armor.repair();
+                Output.msgInfo("XO: Our armor is repaired to top shape, sir.");
+            } else {
+                Output.msgInfo("XO: Sir, we don't have enough resources for armor repairs!");
+            }//Resource check
+        } else {
+            Output.msgInfo("XO: Our armor is already in top shape, sir!");
+        }//Damage check
+    }//End of repairAarmor
+    
     //TODO FLT operations
     //TODO Guns operations
     //TODO Hangar operations
