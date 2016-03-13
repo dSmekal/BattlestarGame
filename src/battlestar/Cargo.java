@@ -38,13 +38,12 @@ class Cargo {
     /**
      * Maximum possible load of resources. Subject to ballancing changes.
      */
-    private final int maxResources;
+    private final int maxResources = 5_000;
 
     /**
      * Creates cargohold of BattleStar
      */
     protected Cargo() {
-        maxResources = 5_000;
         resources = 500;
         Output.msgDebug(subsystem, "Initialized...");
     }//End of constructor
