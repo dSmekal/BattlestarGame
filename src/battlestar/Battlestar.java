@@ -80,6 +80,7 @@ public class Battlestar {
         return bs;
     }//End of factory
 
+    //Resources operations
     /**
      * Handles resources operations invoked from outside, as only BS has acces
      * to cargohold. Input values can be negative for resource loss (from
@@ -95,8 +96,9 @@ public class Battlestar {
         }
     }
 
+    //Crew Operations
     /**
-     * Attemps to train the crew to enxt level. Crew is trained to next level,
+     * Attemps to train the crew to next level. Crew is trained to next level,
      * if there is enough resources and crew isn't on max level.
      */
     public void trainCrew() {
@@ -106,13 +108,48 @@ public class Battlestar {
                 crew.trainCrew();
                 Output.msgInfo("XO: Our crew is bit more efficient again, sir.");
             } else {
-                Output.msgInfo("XO: Sir, we don't have enough resources for training.");
-            }
+                Output.msgInfo("XO: Sir, we don't have enough resources for training!");
+            }//End of resource check
         } else {
             Output.msgInfo("XO: We have nothing more to teach our crew, sir!");
-        }
-    }
-    //TODO Hull operations
+        }//End of level check
+    }//End of trainCrew
+
+    //Hull operations
+    /**
+     * Attemps to upgrade hull to next level. Upgrade is dine if enough
+     * resources is provided ant hull isn't already at max level.
+     */
+    public void upgradeHull() {
+        if (hull.getLevel() < hull.getMaxLevel()) {
+            int cost = crew.getCrewBonusCost(hull.baseUpgradeCost);
+            if (cargo.isAvalible(cost)) {
+                cargo.takeResources(cost);
+                hull.upgrade();
+                Output.msgInfo("XO: We've upgraded our hull, sir.");
+            } else {
+                Output.msgInfo("XO: Sir, we don't have enough resources for hull upgrade!");
+            }//End of resource check
+        } else {
+            Output.msgInfo("XO: We can't improve our hull anymore, sir");
+        }//End of level check
+    }//End of upgradeHull
+
+    public void repairHull() {
+        if (hull.getHp() < hull.maxHp) {
+            int cost = crew.getCrewBonusCost(hull.getDamage());
+            if (cargo.isAvalible(cost)){
+                cargo.takeResources(cost);
+                hull.repair();
+                Output.msgInfo("XO: Our hull is repaired to top shape, sir.");
+            }
+            else{
+                Output.msgInfo("XO: Sir, we don't have enough resources for hull repairs!");
+            }//Resource check
+        } else {
+            Output.msgInfo("XO: Our hull is already in top shape, sir!");
+        }//Damage check
+    }//End of repairHull
     //TODO Armor operations
     //TODO FLT operations
     //TODO Guns operations
