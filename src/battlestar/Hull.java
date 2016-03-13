@@ -45,9 +45,7 @@ class Hull {
      * Maximum hit points. Level x hpPerLlv. Subject to balancing changes.
      */
     protected int maxHp;
-    /**
-     * Indicates maximum hit point per level. Subject to balancing changes.
-     */
+
     protected int hpPerLvl;
     /**
      * Subsystem name for debug output.
@@ -58,7 +56,8 @@ class Hull {
      * Crates hull of battlestar.
      */
     protected Hull() {
-        level = 0;
+        hpPerLvl = 1_000;
+        level = 1;
         maxHp = level * hpPerLvl;
         hp = maxHp;
         subsystem = "Hull";
