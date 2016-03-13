@@ -169,7 +169,7 @@ public class Battlestar {
             Output.msgInfo("XO: We can't improve our armor anymore, sir");
         }//End of level check
     }//End of upgradeArmor
-    public void repairAarmor() {
+    public void repairArmor() {
         if (armor.getHp() < armor.maxHp) {
             int cost = crew.getCrewBonusCost(armor.getDamage());
             if (cargo.isAvalible(cost)) {
@@ -182,7 +182,7 @@ public class Battlestar {
         } else {
             Output.msgInfo("XO: Our armor is already in top shape, sir!");
         }//Damage check
-    }//End of repairAarmor
+    }//End of repairArmor
     
     //TODO FLT operations
     //TODO Guns operations
