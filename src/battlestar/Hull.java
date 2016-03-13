@@ -114,7 +114,7 @@ class Hull {
         return maxHp - hp;
     }
 
-    protected int getUpgradeCost() {
+    protected int getBaseUpgradeCost() {
         return baseUpgradeCost * level;
     }
 
