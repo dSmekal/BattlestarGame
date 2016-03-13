@@ -39,14 +39,23 @@ public class Battlestar {
      * Crew that serves on battlestar.
      */
     private final Crew crew;
+    /**
+     * Hull structure of battlestar.
+     */
+    private final Hull hull;
+    /**
+     * Armor of battlestar
+     */
+    private final Armor armor;
 
     /**
      * Creates a battlestar. Factory will be used for setup.
      */
-    private Battlestar(Cargo cargo, Crew crew) {
+    private Battlestar(Cargo cargo, Crew crew, Hull hull, Armor armor) {
         this.cargo = cargo;
         this.crew = crew;
-
+        this.hull = hull;
+        this.armor = armor;
     }//End of constructor
 
     /**
@@ -62,7 +71,11 @@ public class Battlestar {
         Cargo crg = new Cargo();
         Output.msgDebug("Factory", "Initializing crew...");
         Crew crw = new Crew();
-        Battlestar bs = new Battlestar(crg, crw);
+        Output.msgDebug("Factory", "Initializing hull...");
+        Hull hull = new Hull();
+        Output.msgDebug("Factory", "Initializing armor");
+        Armor arm = new Armor();
+        Battlestar bs = new Battlestar(crg, crw, hull, arm);
         Output.msgDebug("Factory", "Battlestar constructed!");
         return bs;
     }//End of factory
@@ -89,6 +102,7 @@ public class Battlestar {
     public void trainCrew() {
         if (crew.getLevel() < crew.getMaxLevel()) {
             if (cargo.isAvalible(crew.getTrainingCost())) {
+                cargo.takeResources(crew.getTrainingCost());
                 crew.trainCrew();
                 Output.msgInfo("XO: Our crew is bit more efficient again, sir.");
             } else {
