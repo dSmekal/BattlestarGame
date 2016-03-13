@@ -30,11 +30,11 @@ import io.Output;
 class Hull {
 
     /**
-     * Current level
+     * Current level.
      */
     protected int level;
     /**
-     * Maximal level
+     * Maximal level. Subject to balancicng changes.
      */
     protected final int maxLevel = 5;
     /**
@@ -71,6 +71,14 @@ class Hull {
      */
     protected int getLevel() {
         return level;
+    }
+
+    /**
+     * Returns structure maximum level.
+     * @return maximum structure level
+     */
+    protected int getMaxLevel() {
+        return maxLevel;
     }
 
     /**
