@@ -76,7 +76,7 @@ class Cargo {
             Output.msgInfo(String.format("XO: We have full cargo, sir! %s resources was jetsisioned.", resources - maxResources));
             resources = maxResources;
         }
-        Output.msgDebug(subsystem, String.format("Added %s resources.", addition));
+        Output.msgDebug(subsystem, String.format("Added %s resources. %s resources avalible.", addition, resources));
     }//End of addResources
 
     /**
@@ -86,6 +86,6 @@ class Cargo {
      */
     protected void takeResources(int request) {
         resources -= request;
-        Output.msgDebug(subsystem, String.format("Removed %s resources.", request));
+        Output.msgDebug(subsystem, String.format("Removed %s resources. %s resources avalible.", request, resources));
     }//End of takeResources
 }//End of class
