@@ -105,6 +105,7 @@ class FTL {
         if (cooldown < 0) {
             cooldown = 0; //Cooldown can't be zero
         }
+        Output.msgDebug(subysystem, String.format("FTL cooldown: %s turns remaining.", cooldown));
     }//End of cool
 
     /**
@@ -112,5 +113,7 @@ class FTL {
      */
     protected void upgrade() {
         level += 1;
+        resetCooldown();
+        Output.msgDebug(subysystem, String.format("FTL upgraded to level %s,", level));
     }//End of upgrade
 }//End of class
