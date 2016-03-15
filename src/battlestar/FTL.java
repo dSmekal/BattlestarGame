@@ -51,7 +51,7 @@ class FTL {
     /**
      * Basic number of turn to cooldwon. Subject to balancing changes.
      */
-    private final int basicCoolDown = 10;
+    private final int basicCoolDown = 20;
 
     /**
      * Creates FTL drive for battlestar
@@ -114,6 +114,6 @@ class FTL {
     protected void upgrade() {
         level += 1;
         resetCooldown();
-        Output.msgDebug(subysystem, String.format("FTL upgraded to level %s,", level));
+        Output.msgDebug(subysystem, String.format("FTL upgraded to level %s.", level));
     }//End of upgrade
 }//End of class
