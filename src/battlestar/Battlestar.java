@@ -47,15 +47,20 @@ public class Battlestar {
      * Armor of battlestar
      */
     private final Armor armor;
+    /**
+     * FTL drive of battlestar
+     */
+    private final FTL ftl;
 
     /**
      * Creates a battlestar. Factory will be used for setup.
      */
-    private Battlestar(Cargo cargo, Crew crew, Hull hull, Armor armor) {
+    private Battlestar(Cargo cargo, Crew crew, Hull hull, Armor armor, FTL ftl) {
         this.cargo = cargo;
         this.crew = crew;
         this.hull = hull;
         this.armor = armor;
+        this.ftl = ftl;
     }//End of constructor
 
     /**
@@ -73,9 +78,11 @@ public class Battlestar {
         Crew crw = new Crew();
         Output.msgDebug("Factory", "Initializing hull...");
         Hull hull = new Hull();
-        Output.msgDebug("Factory", "Initializing armor");
+        Output.msgDebug("Factory", "Initializing armor...");
         Armor arm = new Armor();
-        Battlestar bs = new Battlestar(crg, crw, hull, arm);
+        Output.msgDebug("Factory", "Initializing FTL...");
+        FTL ftl = new FTL();
+        Battlestar bs = new Battlestar(crg, crw, hull, arm, ftl);
         Output.msgDebug("Factory", "Battlestar constructed!");
         return bs;
     }//End of factory
@@ -113,9 +120,11 @@ public class Battlestar {
         } else {
             Output.msgInfo("XO: We have nothing more to teach our crew, sir!");
         }//End of level check
+        nextTurn();
     }//End of trainCrew
-
+    //TODO hull&armor methods are simmilar, possible to rewrite in objects?
     //Hull operations
+
     /**
      * Attemps to upgrade hull to next level. Upgrade is dine if enough
      * resources is provided ant hull isn't already at max level.
@@ -133,6 +142,7 @@ public class Battlestar {
         } else {
             Output.msgInfo("XO: We can't improve our hull anymore, sir");
         }//End of level check
+        nextTurn();
     }//End of upgradeHull
 
     public void repairHull() {
@@ -148,6 +158,7 @@ public class Battlestar {
         } else {
             Output.msgInfo("XO: Our hull is already in top shape, sir!");
         }//Damage check
+        nextTurn();
     }//End of repairHull
 
     //Armor operations
@@ -168,7 +179,9 @@ public class Battlestar {
         } else {
             Output.msgInfo("XO: We can't improve our armor anymore, sir");
         }//End of level check
+        nextTurn();
     }//End of upgradeArmor
+
     public void repairArmor() {
         if (armor.getHp() < armor.maxHp) {
             int cost = crew.getCrewBonusCost(armor.getDamage());
@@ -182,9 +195,31 @@ public class Battlestar {
         } else {
             Output.msgInfo("XO: Our armor is already in top shape, sir!");
         }//Damage check
+        nextTurn();
     }//End of repairArmor
-    
-    //TODO FLT operations
+
+    //FLT operations
+    public void upgradeFTL() {
+        if (ftl.getLevel() < ftl.getMaxLevel()) {
+            int cost = crew.getCrewBonusCost(ftl.getBasicUpgradeCost());
+            if (cargo.isAvalible(cost)) {
+                cargo.takeResources(cost);
+                ftl.upgrade();
+                Output.msgInfo("XO: We've made our FTL drive more effective, sir.");
+            } else {
+                Output.msgInfo("XO: Sir, we don't have enough resources for FTL upgrade!");
+            }//End ouf resource-check
+        } else {
+            Output.msgInfo("XO: There is no way we could upgrade our FTL more, sir!");
+        }//End of level-check
+        nextTurn();
+    }//End of upgradeFTL
     //TODO Guns operations
     //TODO Hangar operations
+    //TODO attack & defense
+    //Other methods
+    //Actions that happens on BS on each end of turn
+    private void nextTurn() {
+        ftl.cool();
+    }
 }//End of class
