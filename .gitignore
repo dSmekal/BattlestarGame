@@ -45,6 +45,11 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+nbproject/private/
 /build/
+/nbbuild/
 /dist/
-nbproject/private/private.xml
+/nbdist/
+nbactions.xml
+.nb-gradle/
+
