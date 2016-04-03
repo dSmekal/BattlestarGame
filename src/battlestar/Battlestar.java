@@ -218,7 +218,10 @@ public class Battlestar {
     //TODO Hangar operations
     //TODO attack & defense
     //Other methods
-    //Actions that happens on BS on each end of turn
+
+    /**
+     * Actions that happens on BS on each end of turn
+     */
     private void nextTurn() {
         ftl.cool();
     }
