@@ -26,24 +26,8 @@ import io.Output;
  * @author Malanius malanius@seznam.cz
  * @version 0.0.1
  */
-class FTL {
+class FTL extends Subsystem {
 
-    /**
-     * Subsystem name for debug output
-     */
-    private final String subysystem = "FTL drive";
-    /**
-     * Level of subsystem
-     */
-    private int level;
-    /**
-     * Maximum level of subsystem. Subject to balancing changes
-     */
-    private final int maxLevel = 5;
-    /**
-     * Basic upgrade cost per level. Subject to balancing changes.
-     */
-    private final int basicUpgradeCost = 2_000;
     /**
      * Number of turns FTL drive needs to cooldown
      */
@@ -51,37 +35,13 @@ class FTL {
     /**
      * Basic number of turn to cooldwon. Subject to balancing changes.
      */
-    private final int basicCoolDown = 20;
+    private final int basicCoolDown;
 
-    /**
-     * Creates FTL drive for battlestar
-     */
-    protected FTL() {
-        level = 1;
-        resetCooldown();
-        Output.msgDebug(subysystem, "Initialized...");
-    }//End of constructor
-
-    /**
-     * @return the level of FTL drive
-     */
-    protected int getLevel() {
-        return level;
-    }//End of getLevel
-
-    /**
-     * @return the maxLevel of FTL drive
-     */
-    protected int getMaxLevel() {
-        return maxLevel;
-    }//End of getMaxLevel
-
-    /**
-     * @return the basicUpgradeCost of FTL drive
-     */
-    protected int getBasicUpgradeCost() {
-        return basicUpgradeCost;
-    }//End of getBasicUpgradeCost
+    public FTL(String subsystem, int maxLevel, int baseUpgradeCost, int basicCooldown) {
+        super(subsystem, maxLevel, baseUpgradeCost);
+        this.basicCoolDown = basicCooldown;
+        cooldown = basicCoolDown;
+    }
 
     /**
      * Check if FTL drive is cooled down and ready to next jump
@@ -91,7 +51,7 @@ class FTL {
     }//End of isReady
 
     /**
-     * Resets cooldown. Usable when upgradidng and jumping
+     * Resets cooldown. Usable when upgradidng and jumping.
      */
     private void resetCooldown() {
         cooldown = (int) Math.ceil(basicCoolDown / level);
@@ -105,15 +65,22 @@ class FTL {
         if (cooldown < 0) {
             cooldown = 0; //Cooldown can't be zero
         }
-        Output.msgDebug(subysystem, String.format("FTL cooldown: %s turns remaining.", cooldown));
+        Output.msgDebug(subsystem, String.format("FTL cooldown: %s turns remaining.", cooldown));
     }//End of cool
 
-    /**
-     * Upgrades the FTL drive and resets the cooldown
+    /** Upgrades the FTL drive. Cooldown is reseted upon upgrade completetion.
+     * 
+     * @param cargo from which resources for upgrade are taken
+     * @param crew that makes the upgrade, used for calculating resource bonus
      */
-    protected void upgrade() {
-        level += 1;
-        resetCooldown();
-        Output.msgDebug(subysystem, String.format("FTL upgraded to level %s.", level));
-    }//End of upgrade
+    @Override
+    protected void upgrade(Cargo cargo, Crew crew) {
+        try {
+            super.upgrade(cargo, crew);
+            resetCooldown();
+        } catch (AlreadyAtMaxException ex) {
+            String message = String.format("%s can't be upgraded, already at maximul level.", subsystem);
+            Output.msgInfo(message);
+        }
+    }
 }//End of class
