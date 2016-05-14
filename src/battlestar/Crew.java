@@ -26,66 +26,11 @@ import io.Output;
  * @author Malanius malanius@seznam.cz
  * @version 0.0.1
  */
-class Crew {
+class Crew extends Subsystem {
 
-    /**
-     * Subsystem name for debug output.
-     */
-    private final String subsystem = "Crew";
-    /**
-     * Level of crew ability
-     */
-    private int level;
-    /**
-     * Max level of crew. Subject to balancing changes.
-     */
-    private final int maxLevel = 5;
-    /**
-     * Base training cost per level. Subject to balancing changes.
-     */
-    private final int baseTrainingCost = 1_000;
-
-    /**
-     * Creates crew for battlestar.
-     */
-    protected Crew() {
-        level = 1;
-        Output.msgDebug(subsystem, "Initialized...");
-    }
-
-    /**
-     * Returns crew level.
-     *
-     * @return crew level
-     */
-    protected int getLevel() {
-        return level;
-    }
-
-    /**
-     * Return max level whuch crew can be trained for.
-     *
-     * @return max level of crew
-     */
-    protected int getMaxLevel() {
-        return maxLevel;
-    }
-
-    /**
-     * Increases level of crew.
-     */
-    protected void trainCrew() {
-        level++;
-        Output.msgDebug(subsystem, "Crew trained");
-    }
-
-    /**
-     * Returns the resource cost of training crew to another level.
-     *
-     * @return training cost
-     */
-    protected int getTrainingCost() {
-        return level * baseTrainingCost;
+    public Crew(String subsystem, int maxLevel, int baseUpgradeCost) {
+        super(subsystem, maxLevel, baseUpgradeCost);
+        level = 0;
     }
 
     /**
