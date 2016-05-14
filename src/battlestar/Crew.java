@@ -34,14 +34,14 @@ class Crew extends Subsystem {
     }
 
     /**
-     * Calculates new cost based on crew efficiency
+     * Calculates new value based on crew efficiency.
      *
-     * @return cost with crew bonus
+     * @return value with crew bonus applied
      */
-    protected int getCrewBonusCost(int baseCost) {
-        int bonus = Math.round(baseCost * (level / 10.0f));
-        int newCost = baseCost - bonus;
-        Output.msgDebug(subsystem, String.format("New cost with crew bonus %s is %s resources.", -bonus, newCost));
-        return newCost;
+    protected int calculateBonus(int base) {
+        int bonus = Math.round(base * (level / 10.0f));
+        int newValue = base - bonus;
+        Output.msgDebug(subsystem, String.format("Crew bonus from %s is %s units (resources/damage).", -bonus, newValue));
+        return newValue;
     }//End of getCrewBonusCost
 }//End of class
