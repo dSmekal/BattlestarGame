@@ -80,9 +80,10 @@ abstract class Subsystem {
      * Upgrades the subsystem if possible.
      * 
      * @param cargo from which resources are taken
+     * @param crew that will make the upgrade
      * @throws AlreadyAtMaxException subsystem level is already at maximum
      */
-    protected void upgrade(Cargo cargo) throws AlreadyAtMaxException {
+    protected void upgrade(Cargo cargo, Crew crew) throws AlreadyAtMaxException {
         if (level < maxLevel) {
             int upgradeCost = baseUpgradeCost * level;
             try {
