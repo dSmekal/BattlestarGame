@@ -88,4 +88,14 @@ class Cargo {
         resources -= request;
         Output.msgDebug(subsystem, String.format("Removed %s resources. %s resources avalible.", request, resources));
     }//End of takeResources
+    
+    /** Tries to use esources. */
+    public void useResources(int ammount) throws MissingResourcesException{
+        if (isAvalible(ammount)){
+            takeResources(ammount);
+        }
+        else{
+            throw new MissingResourcesException(resources,ammount);
+        }
+    }
 }//End of class

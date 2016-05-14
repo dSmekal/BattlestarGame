@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Malanius malanius@seznam.cz
+ * Copyright (C) 2016 Malanius <malanius@seznam.cz>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,19 +17,30 @@
 package battlestar;
 
 /**
- * Represents BS long range and flank guns.
- * The number of guns and crew skill determines attack power.
- * Guns can be build using ship resources or destroyed in events.
- * Small craft can't be hit by long range weapons, but can be attacked with flak
- * when they reach the battlestar.
- * 
- * @author Malanius malanius@seznam.cz
- * @version 0.0.1
+ * Missing resources exception.
+ *
+ * @author Malanius <malanius@seznam.cz>
  */
-class Guns extends Subsystem{
-    
-    public Guns(String subsystem, int maxLevel, int baseUpgradeCost) {
-        super(subsystem, maxLevel, baseUpgradeCost);
+class MissingResourcesException extends Exception {
+
+    /**
+     * Current resources avalibe
+     */
+    private int current;
+    private int requested;
+
+    /**
+     * Missing resources exception
+     *
+     * @param current ammount of resources avalible
+     * @param equestd ammount of resources
+     */
+    public MissingResourcesException(int current, int requested) {
+        this.current = current;
+        this.requested = requested;
     }
-    
-}//End of class
+
+    public int getMissing() {
+        return current - requested;
+    }
+}
