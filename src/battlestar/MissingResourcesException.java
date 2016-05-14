@@ -26,8 +26,8 @@ class MissingResourcesException extends Exception {
     /**
      * Current resources avalibe
      */
-    private int current;
-    private int requested;
+    private final int current;
+    private final int requested;
 
     /**
      * Missing resources exception
@@ -35,12 +35,12 @@ class MissingResourcesException extends Exception {
      * @param current ammount of resources avalible
      * @param equestd ammount of resources
      */
-    public MissingResourcesException(int current, int requested) {
+    protected MissingResourcesException(int current, int requested) {
         this.current = current;
         this.requested = requested;
     }
 
-    public int getMissing() {
+    protected int getMissing() {
         return current - requested;
     }
 }
