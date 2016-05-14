@@ -78,7 +78,7 @@ abstract class Subsystem {
 
     /**
      * Upgrades the subsystem if possible.
-     * 
+     *
      * @param cargo from which resources are taken
      * @param crew that will make the upgrade
      * @throws AlreadyAtMaxException subsystem level is already at maximum
@@ -86,6 +86,9 @@ abstract class Subsystem {
     protected void upgrade(Cargo cargo, Crew crew) throws AlreadyAtMaxException {
         if (level < maxLevel) {
             int upgradeCost = baseUpgradeCost * level;
+            if (!(this instanceof Crew)) {
+                upgradeCost = crew.getCrewBonusCost(upgradeCost);
+            }
             try {
                 cargo.useResources(upgradeCost);
                 level++;
