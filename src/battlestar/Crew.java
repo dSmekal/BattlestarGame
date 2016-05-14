@@ -26,77 +26,22 @@ import io.Output;
  * @author Malanius malanius@seznam.cz
  * @version 0.0.1
  */
-class Crew {
+class Crew extends Subsystem {
 
-    /**
-     * Subsystem name for debug output.
-     */
-    private final String subsystem = "Crew";
-    /**
-     * Level of crew ability
-     */
-    private int level;
-    /**
-     * Max level of crew. Subject to balancing changes.
-     */
-    private final int maxLevel = 5;
-    /**
-     * Base training cost per level. Subject to balancing changes.
-     */
-    private final int baseTrainingCost = 1_000;
-
-    /**
-     * Creates crew for battlestar.
-     */
-    protected Crew() {
-        level = 1;
-        Output.msgDebug(subsystem, "Initialized...");
+    public Crew(String subsystem, int maxLevel, int baseUpgradeCost) {
+        super(subsystem, maxLevel, baseUpgradeCost);
+        level = 0;
     }
 
     /**
-     * Returns crew level.
+     * Calculates new value based on crew efficiency.
      *
-     * @return crew level
+     * @return value with crew bonus applied
      */
-    protected int getLevel() {
-        return level;
-    }
-
-    /**
-     * Return max level whuch crew can be trained for.
-     *
-     * @return max level of crew
-     */
-    protected int getMaxLevel() {
-        return maxLevel;
-    }
-
-    /**
-     * Increases level of crew.
-     */
-    protected void trainCrew() {
-        level++;
-        Output.msgDebug(subsystem, "Crew trained");
-    }
-
-    /**
-     * Returns the resource cost of training crew to another level.
-     *
-     * @return training cost
-     */
-    protected int getTrainingCost() {
-        return level * baseTrainingCost;
-    }
-
-    /**
-     * Calculates new cost based on crew efficiency
-     *
-     * @return cost with crew bonus
-     */
-    protected int getCrewBonusCost(int baseCost) {
-        int bonus = Math.round(baseCost * (level / 10.0f));
-        int newCost = baseCost - bonus;
-        Output.msgDebug(subsystem, String.format("New cost with crew bonus %s is %s resources.", -bonus, newCost));
-        return newCost;
+    protected int calculateBonus(int base) {
+        int bonus = Math.round(base * (level / 10.0f));
+        int newValue = base - bonus;
+        Output.msgDebug(subsystem, String.format("Crew bonus from %s is %s units (resources/damage).", -bonus, newValue));
+        return newValue;
     }//End of getCrewBonusCost
 }//End of class

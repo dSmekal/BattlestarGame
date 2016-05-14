@@ -27,6 +27,7 @@ import io.Output;
  * @author Malanius malanius@seznam.cz
  * @version 0.0.1
  */
+@Deprecated
 class Armor extends Hull {
 
     /**

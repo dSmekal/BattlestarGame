@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Malanius malanius@seznam.cz
+ * Copyright (C) 2016 Malanius <malanius@seznam.cz>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,21 +14,33 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package game;
-
-import battlestar.Battlestar;
+package battlestar;
 
 /**
+ * Missing resources exception.
  *
- * @author Malanius malanius@seznam.cz
+ * @author Malanius <malanius@seznam.cz>
  */
-public class Game {
+class MissingResourcesException extends Exception {
 
     /**
-     * @param args the command line arguments
+     * Current resources avalibe
      */
-    public static void main(String[] args) {
-        Battlestar bs = Battlestar.constructBattlestar();
+    private final int current;
+    private final int requested;
+
+    /**
+     * Missing resources exception
+     *
+     * @param current ammount of resources avalible
+     * @param equestd ammount of resources
+     */
+    protected MissingResourcesException(int current, int requested) {
+        this.current = current;
+        this.requested = requested;
     }
-    
+
+    protected int getMissing() {
+        return current - requested;
+    }
 }

@@ -17,15 +17,17 @@
 package battlestar;
 
 /**
- * Represents BS long range and flank guns.
- * The number of guns and crew skill determines attack power.
- * Guns can be build using ship resources or destroyed in events.
- * Small craft can't be hit by long range weapons, but can be attacked with flak
- * when they reach the battlestar.
- * 
+ * Represents BS long range and flank guns. The number of guns and crew skill
+ * determines attack power. Guns can be build using ship resources or destroyed
+ * in events. Small craft can't be hit by long range weapons, but can be
+ * attacked with flak when they reach the battlestar.
+ *
  * @author Malanius malanius@seznam.cz
  * @version 0.0.1
  */
 class Guns {
-    
+
+    public Guns() {
+    }
+
 }//End of class

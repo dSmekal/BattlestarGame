@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Malanius malanius@seznam.cz
+ * Copyright (C) 2016 Malanius <malanius@seznam.cz>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,21 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package game;
-
-import battlestar.Battlestar;
+package battlestar;
 
 /**
  *
- * @author Malanius malanius@seznam.cz
+ * @author Malanius <malanius@seznam.cz>
  */
-public class Game {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        Battlestar bs = Battlestar.constructBattlestar();
-    }
+class AlreadyAtMaxException extends Exception {
     
 }
