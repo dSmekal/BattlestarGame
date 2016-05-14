@@ -87,7 +87,7 @@ abstract class Subsystem {
         if (level < maxLevel) {
             int upgradeCost = baseUpgradeCost * level;
             if (!(this instanceof Crew)) {
-                upgradeCost = crew.getCrewBonusCost(upgradeCost);
+                upgradeCost = crew.calculateBonus(upgradeCost);
             }
             try {
                 cargo.useResources(upgradeCost);
