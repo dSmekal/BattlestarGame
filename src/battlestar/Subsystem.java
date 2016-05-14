@@ -22,24 +22,24 @@ import io.Output;
  *
  * @author Malanius <malanius@seznam.cz>
  */
-public abstract class Subsystem {
+abstract class Subsystem {
 
     /**
-     * Name of the subsystem
+     * Name of the sbusystem
      */
-    private String subsystem;
+    protected final String subsystem;
     /**
      * Current level of subsystem
      */
-    private int level;
+    protected int level;
     /**
      * Maximum subsystem level
      */
-    private int maxLevel;
+    protected final int maxLevel;
     /**
      * Base training cost per level. Subject to balancing changes.
      */
-    private int baseUpgradeCost;
+    protected final int baseUpgradeCost;
 
     public Subsystem(String subsystem, int maxLevel, int baseUpgradeCost) {
         this.subsystem = subsystem;
@@ -76,7 +76,13 @@ public abstract class Subsystem {
         return baseUpgradeCost;
     }
 
-    public void upgrade(Cargo cargo) throws AlreadyAtMaxException {
+    /**
+     * Upgrades the subsystem if possible.
+     * 
+     * @param cargo from which resources are taken
+     * @throws AlreadyAtMaxException subsystem level is already at maximum
+     */
+    protected void upgrade(Cargo cargo) throws AlreadyAtMaxException {
         if (level < maxLevel) {
             int upgradeCost = baseUpgradeCost * level;
             try {
