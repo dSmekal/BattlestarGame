@@ -26,6 +26,7 @@ import io.Output;
  * level. If hull HPs goest to 0, it's game over.
  *
  * @author Malanius <malanius@seznam.cz>
+ * @version 1.0
  */
 public class ProtectionLayer extends Subsystem {
 
@@ -47,24 +48,25 @@ public class ProtectionLayer extends Subsystem {
     boolean armor;
 
     /**
-     * Creates protection layer for battlestar. Specify name of layer to determine Hull/Armor
+     * Creates protection layer for battlestar. Specify name of layer to
+     * determine Hull/Armor
+     *
      * @param subsystem name - Armor or Hull
      * @param maxLevel maximum level of subsystem
-     * @param baseUpgradeCost basic cost of upgrade, total upgrade cost is level * baseUprade cost
-     * @param hpPerLvl base hitpint for level, total max hitpoints is level * hpPerLvl
+     * @param baseUpgradeCost basic cost of upgrade, total upgrade cost is level
+     * * baseUprade cost
+     * @param hpPerLvl base hitpint for level, total max hitpoints is level *
+     * hpPerLvl
      */
     protected ProtectionLayer(String subsystem, int maxLevel, int baseUpgradeCost, int hpPerLvl) {
         super(subsystem, maxLevel, baseUpgradeCost);
         this.hpPerLvl = hpPerLvl;
         this.level = 1;
         this.maxHp = hpPerLvl * level;
-        if (subsystem.equals("Armor")) {
-            armor = true;
-        } else {
-            armor = false;
-        }
+        //Determine if layer is Hull or Armor
+        armor = subsystem.equals("Armor");
 
-    }
+    }//End of constructor
 
     /**
      * @return the hp
@@ -72,32 +74,29 @@ public class ProtectionLayer extends Subsystem {
     protected int getHp() {
         return hp;
     }
-    /** Upgrades the layer, if possible.
-     * 
+
+    /**
+     * Upgrades the layer, if possible.
+     *
      * @param cargo from resources for upgrade are taken
      * @param crew that makes the upgrade (for resource bonus calculation)
-     * @throws AlreadyAtMaxException 
+     * @throws AlreadyAtMaxException
      */
     @Override
     protected void upgrade(Cargo cargo, Crew crew) throws AlreadyAtMaxException {
-        if (level < maxLevel) {
-            int upgradeCost = baseUpgradeCost * level;
-            try {
-                cargo.useResources(upgradeCost);
-                level++;
-                maxHp = hpPerLvl * level;
-                hp = maxHp;
-            } catch (MissingResourcesException ex) {
-                String message = String.format("%s cant't be upgraded, missing %s resources.", subsystem, ex.getMissing());
-                Output.msgInfo(message);
-            }
-        } else {
-            throw new AlreadyAtMaxException();
+        try {
+            super.upgrade(cargo, crew);
+            maxHp = maxHp * hpPerLvl;
+            hp = maxHp;
+        } catch (AlreadyAtMaxException ex) {
+            String message = String.format("%s can't be upgraded, already at maximul level.", subsystem);
+            Output.msgInfo(message);
         }
-    }
+    }//End of upgrade
 
     /**
      * Calculates bonus protection for armor. It's not used for hull.
+     *
      * @param damage incoming damage, already reduced by crew bonus
      * @return reduced damage
      */
@@ -109,8 +108,9 @@ public class ProtectionLayer extends Subsystem {
     }
 
     /**
-     * Takes the hit and reduces hit point.
-     * Crew and armor bonuses are aplied before reducing hitpoints.
+     * Takes the hit and reduces hit point. Crew and armor bonuses are aplied
+     * before reducing hitpoints.
+     *
      * @param damage incoming damage
      * @param crew crew for calculating bonus
      */
@@ -129,8 +129,10 @@ public class ProtectionLayer extends Subsystem {
 
     /**
      * Repairs the layer, if enough resources is avalible.
+     *
      * @param cargo from where resources for repairs are taken
-     * @param crew crew that makes the repairs, used for counting resources bonus
+     * @param crew crew that makes the repairs, used for counting resources
+     * bonus
      * @throws NoDamageException if there is nothing to repair
      */
     protected void repair(Cargo cargo, Crew crew) throws NoDamageException {
