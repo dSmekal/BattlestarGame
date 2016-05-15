@@ -91,6 +91,9 @@ public class ProtectionLayer extends Subsystem {
         } catch (AlreadyAtMaxException ex) {
             String message = String.format("%s can't be upgraded, already at maximul level.", subsystem);
             Output.msgInfo(message);
+        } catch (MissingResourcesException ex) {
+            String message = String.format("%s cant't be upgraded, missing %s resources.", subsystem, ex.getMissing());
+            Output.msgInfo(message);
         }
     }//End of upgrade
 
