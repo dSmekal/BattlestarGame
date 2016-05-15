@@ -91,7 +91,7 @@ class Cargo {
     }//End of takeResources
     
     /** Tries to use esources. */
-    public void useResources(int ammount) throws MissingResourcesException{
+    protected void useResources(int ammount) throws MissingResourcesException{
         if (isAvalible(ammount)){
             takeResources(ammount);
         }
