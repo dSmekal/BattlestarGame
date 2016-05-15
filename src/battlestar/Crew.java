@@ -28,6 +28,13 @@ import io.Output;
  */
 class Crew extends Subsystem {
 
+    /**
+     * Creates battlestars' crew
+     *
+     * @param subsystem Name of the subsystem, should be "Crew"
+     * @param maxLevel maximul level, crew can be trained to.
+     * @param baseUpgradeCost basic upgrade cots modifier.
+     */
     public Crew(String subsystem, int maxLevel, int baseUpgradeCost) {
         super(subsystem, maxLevel, baseUpgradeCost);
         level = 0;
