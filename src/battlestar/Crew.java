@@ -35,7 +35,7 @@ class Crew extends Subsystem {
      * @param maxLevel maximul level, crew can be trained to.
      * @param baseUpgradeCost basic upgrade cots modifier.
      */
-    public Crew(String subsystem, int maxLevel, int baseUpgradeCost) {
+    protected Crew(String subsystem, int maxLevel, int baseUpgradeCost) {
         super(subsystem, maxLevel, baseUpgradeCost);
         level = 0;
     }
