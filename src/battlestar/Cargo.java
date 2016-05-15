@@ -16,6 +16,7 @@
  */
 package battlestar;
 
+import battlestar.exceptions.MissingResourcesException;
 import io.Output;
 
 /**

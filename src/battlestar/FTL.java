@@ -16,6 +16,7 @@
  */
 package battlestar;
 
+import battlestar.exceptions.AlreadyAtMaxException;
 import io.Output;
 
 /**

@@ -16,6 +16,8 @@
  */
 package battlestar;
 
+import battlestar.exceptions.MissingResourcesException;
+import battlestar.exceptions.AlreadyAtMaxException;
 import io.Output;
 
 /**
