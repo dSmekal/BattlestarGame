@@ -24,7 +24,7 @@ import io.Output;
  * for better bonuses.
  *
  * @author Malanius malanius@seznam.cz
- * @version 0.0.1
+ * @version 1.0
  */
 class Crew extends Subsystem {
 
