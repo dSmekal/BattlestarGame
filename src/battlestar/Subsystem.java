@@ -21,34 +21,43 @@ import battlestar.exceptions.AlreadyAtMaxException;
 import io.Output;
 
 /**
+ * Subsystem of battlestar. Contains basic methods for subsystems.
  *
  * @author Malanius <malanius@seznam.cz>
+ * @version 1.0
  */
 abstract class Subsystem {
 
     /**
-     * Name of the sbusystem
+     * Name of the subsystem.
      */
     protected final String subsystem;
     /**
-     * Current level of subsystem
+     * Current level of subsystem.
      */
     protected int level;
     /**
-     * Maximum subsystem level
+     * Maximum subsystem level.
      */
     protected final int maxLevel;
     /**
-     * Base training cost per level. Subject to balancing changes.
+     * Base training cost per level.
      */
     protected final int baseUpgradeCost;
 
+    /**
+     * Creates subsystem of battlestar.
+     *
+     * @param subsystem name of the subsystem.
+     * @param maxLevel maximum level subsystem can be upgraded to.
+     * @param baseUpgradeCost basic upgrade cost modifier.
+     */
     public Subsystem(String subsystem, int maxLevel, int baseUpgradeCost) {
         this.subsystem = subsystem;
         this.level = 1;
         this.maxLevel = maxLevel;
         this.baseUpgradeCost = baseUpgradeCost;
-    }
+    }//End of construcor
 
     /**
      * @return the subsystem
@@ -101,5 +110,5 @@ abstract class Subsystem {
         } else {
             throw new AlreadyAtMaxException();
         }
-    }
-}
+    }//End of upgrade
+}//End of Subsystem class
