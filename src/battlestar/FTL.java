@@ -17,6 +17,7 @@
 package battlestar;
 
 import battlestar.exceptions.AlreadyAtMaxException;
+import battlestar.exceptions.MissingResourcesException;
 import io.Output;
 
 /**
@@ -69,8 +70,9 @@ class FTL extends Subsystem {
         Output.msgDebug(subsystem, String.format("FTL cooldown: %s turns remaining.", cooldown));
     }//End of cool
 
-    /** Upgrades the FTL drive. Cooldown is reseted upon upgrade completetion.
-     * 
+    /**
+     * Upgrades the FTL drive. Cooldown is reseted upon upgrade completetion.
+     *
      * @param cargo from which resources for upgrade are taken
      * @param crew that makes the upgrade, used for calculating resource bonus
      */
@@ -81,6 +83,9 @@ class FTL extends Subsystem {
             resetCooldown();
         } catch (AlreadyAtMaxException ex) {
             String message = String.format("%s can't be upgraded, already at maximul level.", subsystem);
+            Output.msgInfo(message);
+        } catch (MissingResourcesException ex) {
+            String message = String.format("%s cant't be upgraded, missing %s resources.", subsystem, ex.getMissing());
             Output.msgInfo(message);
         }
     }
