@@ -52,7 +52,7 @@ abstract class Subsystem {
      * @param maxLevel maximum level subsystem can be upgraded to.
      * @param baseUpgradeCost basic upgrade cost modifier.
      */
-    public Subsystem(String subsystem, int maxLevel, int baseUpgradeCost) {
+    protected Subsystem(String subsystem, int maxLevel, int baseUpgradeCost) {
         this.subsystem = subsystem;
         this.level = 1;
         this.maxLevel = maxLevel;
@@ -62,28 +62,28 @@ abstract class Subsystem {
     /**
      * @return the subsystem
      */
-    public String getSubsystem() {
+    protected String getSubsystem() {
         return subsystem;
     }
 
     /**
      * @return the level
      */
-    public int getLevel() {
+    protected int getLevel() {
         return level;
     }
 
     /**
      * @return the maxLevel
      */
-    public int getMaxLevel() {
+    protected int getMaxLevel() {
         return maxLevel;
     }
 
     /**
      * @return the baseUpgradeCost
      */
-    public int getBaseUpgradeCost() {
+    protected int getBaseUpgradeCost() {
         return baseUpgradeCost;
     }
 
