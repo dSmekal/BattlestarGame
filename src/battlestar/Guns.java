@@ -16,6 +16,10 @@
  */
 package battlestar;
 
+import battlestar.exceptions.MissingResourcesException;
+import io.Output;
+import java.util.MissingResourceException;
+
 /**
  * Represents BS long range and flank guns. The number of guns and crew skill
  * determines attack power. Guns can be build using ship resources or destroyed
@@ -27,7 +31,53 @@ package battlestar;
  */
 class Guns {
 
-    public Guns() {
+    private int numGuns;
+    private int maxGuns;
+    private int baseGunCost;
+
+    protected Guns() {
+
     }
 
+    /**
+     * @return the numGuns
+     */
+    protected int getNumGuns() {
+        return numGuns;
+    }
+
+    /**
+     * @return the maxGuns
+     */
+    protected int getMaxGuns() {
+        return maxGuns;
+    }
+
+    /**
+     * @return the baseGunCost
+     */
+    protected int getBaseGunCost() {
+        return baseGunCost;
+    }
+
+    protected void buildGuns(int number, Cargo cargo, Crew crew) {
+        int cost = baseGunCost * number;
+        cost = crew.calculateBonus(cost);
+        try {
+            cargo.useResources(cost);
+            numGuns += number;
+        } catch (MissingResourcesException ex) {
+            String message = String.format("%s guns can't be build, missing %s resources.", number, ex.getMissing());
+            Output.msgInfo(message);
+        }
+
+    }//End of buidGuns
+
+    protected void looseGuns(int number) {
+        numGuns -= number;                
+    }//End uf looseGuns
+
+    protected int getAttackPower(Crew crew) {
+        return 0;
+    }
 }//End of class
