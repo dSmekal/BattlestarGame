@@ -26,7 +26,7 @@ import io.Output;
  * resources shortens the cooldown time.
  *
  * @author Malanius malanius@seznam.cz
- * @version 0.0.1
+ * @version 1.0
  */
 class FTL extends Subsystem {
 
@@ -38,7 +38,13 @@ class FTL extends Subsystem {
      * Basic number of turn to cooldwon. Subject to balancing changes.
      */
     private final int basicCoolDown;
-
+    /**
+     * Creates FTL drive for battelstar.
+     * @param subsystem Name of subsytem
+     * @param maxLevel maximum level subsystem can be upgraded to.
+     * @param baseUpgradeCost basic uograde cost modifier.
+     * @param basicCooldown  basic cooldown modifier.
+     */
     public FTL(String subsystem, int maxLevel, int baseUpgradeCost, int basicCooldown) {
         super(subsystem, maxLevel, baseUpgradeCost);
         this.basicCoolDown = basicCooldown;
@@ -88,5 +94,5 @@ class FTL extends Subsystem {
             String message = String.format("%s cant't be upgraded, missing %s resources.", subsystem, ex.getMissing());
             Output.msgInfo(message);
         }
-    }
+    }//End of upgrade
 }//End of class
